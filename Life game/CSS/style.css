@@ -1,0 +1,397 @@
+/* Fundo com gradiente */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #e6e6e6 0%, #b3e5fc 100%);
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* Título com sombra */
+h1 {
+    text-align: center;
+    color: #1976d2;
+    text-shadow: 2px 2px 8px #0002;
+    margin-top: 32px;
+    margin-bottom: 0;
+    letter-spacing: 2px;
+    font-size: 2.5rem;
+    font-weight: 900;
+}
+
+/* --- FORMULÁRIO DE JOGADORES --- */
+#setup {
+    box-shadow: 0 8px 32px #1976d244;
+    border: 2px solid #1976d2;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #fff 80%, #b3e5fc 100%);
+    margin-top: 32px;
+    animation: fadeInDown 0.7s;
+}
+@keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-40px);}
+    100% { opacity: 1; transform: translateY(0);}
+}
+#setup h2 {
+    color: #1976d2;
+    text-align: center;
+    margin-bottom: 18px;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+#players-setup > div {
+    background: #e3f2fd;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 8px #1976d211;
+    border-left: 5px solid #1976d2;
+    animation: fadeIn 0.5s;
+}
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateX(-30px);}
+    100% { opacity: 1; transform: translateX(0);}
+}
+#players-setup label {
+    margin-right: 10px;
+    font-weight: 500;
+    color: #1976d2;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+#players-setup input, #players-setup select {
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1.5px solid #90caf9;
+    margin-left: 4px;
+    margin-right: 8px;
+    font-size: 15px;
+    background: #fff;
+    transition: border 0.2s;
+}
+#players-setup input:focus, #players-setup select:focus {
+    border: 1.5px solid #1976d2;
+    outline: none;
+}
+#add-player::before {
+    content: "➕";
+    margin-right: 6px;
+}
+#remove-player::before {
+    content: "➖";
+    margin-right: 6px;
+}
+
+/* --- BOTÕES --- */
+.btn {
+    padding: 10px 22px;
+    background: linear-gradient(135deg, #1976d2 60%, #64b5f6 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 2px 12px #1976d244, 0 0 8px #64b5f6cc;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    margin: 4px 0;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+.btn:active {
+    transform: scale(0.97);
+}
+.btn:disabled {
+    background: #aaa;
+    color: #eee;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+.btn:not(:disabled):hover {
+    background: linear-gradient(135deg, #42a5f5 60%, #1976d2 100%);
+    box-shadow: 0 0 16px #42a5f5cc, 0 2px 12px #1976d244;
+}
+
+/* --- TABULEIRO --- */
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(11, 60px);   /* aumente de 50px para 60px */
+    grid-template-rows: repeat(11, 60px);      /* aumente de 50px para 60px */
+    margin: 30px auto;
+    width: 660px;                              /* aumente de 550px para 660px */
+    height: 660px;                             /* aumente de 550px para 660px */
+    background: #fff;
+    border: 6px solid #1976d2;
+    border-radius: 18px;
+    box-shadow: 0 12px 40px #1976d255, 0 1.5px 0 #fff inset;
+    perspective: 800px;
+    animation: fadeInUp 1s;
+}
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(60px);}
+    100% { opacity: 1; transform: translateY(0);}
+}
+.cell {
+    border: 1px solid #90caf9;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    position: relative;
+    min-height: 40px;
+    min-width: 40px;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    user-select: none;
+    box-shadow: 0 1px 4px #1976d211;
+}
+.cell:hover {
+    background: #e3f2fd;
+    box-shadow: 0 2px 12px #1976d233;
+    transform: scale(1.07) rotateZ(-2deg);
+    z-index: 2;
+}
+
+/* Emojis para casas especiais */
+.cell.chance::before {
+    content: "🎲";
+    font-size: 18px;
+    display: block;
+}
+.cell.tax::before {
+    content: "💰";
+    font-size: 18px;
+    display: block;
+}
+.cell.corner[data-name*="Prisão"]::before {
+    content: "🚔";
+    font-size: 18px;
+    display: block;
+}
+.cell.corner[data-name*="Início"]::before {
+    content: "🏁";
+    font-size: 18px;
+    display: block;
+}
+.cell.corner[data-name*="Parada Livre"]::before {
+    content: "🛑";
+    font-size: 18px;
+    display: block;
+}
+.cell.corner[data-name*="Vá para Prisão"]::before {
+    content: "➡️🚔";
+    font-size: 18px;
+    display: block;
+}
+.cell[data-name*="Railroad"]::before,
+.cell[data-name*="Estação"]::before {
+    content: "🚂";
+    font-size: 18px;
+    display: block;
+}
+.cell[data-name*="Water"]::before,
+.cell[data-name*="Electric"]::before,
+.cell[data-name*="Companhia"]::before {
+    content: "💡";
+    font-size: 18px;
+    display: block;
+}
+
+/* Cantos */
+.corner {
+    background: linear-gradient(135deg, #ffe082 60%, #fffde7 100%);
+    font-weight: bold;
+    color: #795548;
+    border-radius: 10px;
+    border: 2px solid #ffb300;
+    box-shadow: 0 2px 8px #ffb30033;
+}
+
+/* Propriedades */
+.property {
+    background: linear-gradient(135deg, #b3e5fc 60%, #e1f5fe 100%);
+    cursor: pointer;
+    border: 2px solid #0288d1;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px #0288d122;
+}
+.property:hover {
+    background: linear-gradient(135deg, #81d4fa 60%, #b3e5fc 100%);
+    border: 2px solid #1976d2;
+}
+
+/* Propriedade comprada */
+.owned {
+    background: linear-gradient(135deg, #c8e6c9 60%, #f1f8e9 100%);
+    border: 2px solid #388e3c;
+    box-shadow: 0 2px 8px #388e3c22;
+}
+
+/* Casas de chance */
+.cell.chance {
+    background: linear-gradient(135deg, #ffe0b2 60%, #fffde7 100%) !important;
+    border: 2px dashed #ff9800;
+}
+
+/* Casas de imposto */
+.cell.tax {
+    background: linear-gradient(135deg, #ffcdd2 60%, #fff8e1 100%) !important;
+    border: 2px dashed #d32f2f;
+}
+
+/* Peões dos jogadores */
+.player {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    position: absolute;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px #0003;
+    transition: left 0.2s, bottom 0.2s, box-shadow 0.2s;
+    z-index: 2;
+    animation: pawn-pop 0.3s;
+    outline: 2px solid #1976d2;
+}
+@keyframes pawn-pop {
+    0% { transform: scale(0.7);}
+    80% { transform: scale(1.15);}
+    100% { transform: scale(1);}
+}
+
+/* Painel de jogadores */
+#players {
+    margin: 20px auto;
+    width: 550px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#players > div {
+    background: linear-gradient(135deg, #1976d2 60%, #64b5f6 100%);
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #1976d233;
+    min-width: 120px;
+    text-align: center;
+    font-size: 16px;
+    border: 2px solid #fff;
+    transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
+    position: relative;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+#players > div b {
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+/* Destaque para o jogador da vez */
+#players > div.current-player {
+    border: 3px solid #ffd600;
+    box-shadow: 0 0 16px #ffd60099, 0 2px 8px #1976d233;
+    transform: scale(1.07);
+    z-index: 1;
+}
+#players > div.current-player::after {
+    content: "👑";
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 22px;
+    filter: drop-shadow(0 2px 2px #fff);
+    animation: crown-pop 0.5s;
+}
+@keyframes crown-pop {
+    0% { transform: translateX(-50%) scale(0.7);}
+    80% { transform: translateX(-50%) scale(1.2);}
+    100% { transform: translateX(-50%) scale(1);}
+}
+
+/* Controles */
+#controls {
+    margin: 20px auto;
+    width: 550px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    animation: fadeInUp 1.2s;
+}
+
+/* Log */
+#log {
+    background: #fff;
+    border: 1px solid #90caf9;
+    height: 120px;
+    overflow-y: auto;
+    padding: 12px;
+    margin: 20px auto;
+    width: 550px;
+    font-size: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #1976d211;
+    color: #1976d2;
+    font-weight: 500;
+    animation: fadeIn 1.2s;
+}
+
+/* Modal */
+#modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+#modal-content {
+    background: #fff;
+    padding: 36px;
+    border-radius: 16px;
+    min-width: 320px;
+    box-shadow: 0 8px 32px #1976d255;
+    text-align: center;
+    font-size: 20px;
+    color: #1976d2;
+    font-weight: 600;
+    animation: fadeInDown 0.7s;
+}
+
+#dice {
+    width: 110px;
+    height: 90px;
+    margin: 18px auto 10px auto;
+    display: none; /* Escondido por padrão */
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem; /* Menor para caber texto e ícone */
+    font-weight: bold;
+    color: #1976d2;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px #1976d244;
+    border: 3px solid #1976d2;
+    animation: dice-pop 0.3s;
+    letter-spacing: 2px;
+    overflow: hidden;
+    text-align: center;
+    flex-direction: column;
+    gap: 0;
+}
+#dice span {
+    display: inline-block;
+    vertical-align: middle;
+}
+@keyframes dice-pop {
+    0% { transform: scale(0.7);}
+    80% { transform: scale(1.15);}
+    100% { transform: scale(1);}
+}

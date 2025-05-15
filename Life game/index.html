@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Banco Imobiliário</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+    <h1 style="text-align:center;">Banco Imobiliário</h1>
+    <div id="setup" style="max-width:400px;margin:30px auto;background:#fff;padding:24px;border-radius:8px;box-shadow:0 2px 8px #0002;">
+        <h2>Configurar Jogadores</h2>
+        <form id="setup-form">
+            <div id="players-setup"></div>
+            <button type="button" class="btn" id="add-player">Adicionar Jogador</button>
+            <button type="button" class="btn" id="remove-player">Remover Jogador</button>
+            <br><br>
+            <button type="submit" class="btn">Iniciar Jogo</button>
+        </form>
+    </div>
+    <div id="players"></div>
+    <div id="game-board"></div>
+    <div id="dice"></div>
+    <div id="controls">
+        <button class="btn" id="roll-btn">Rolar Dados</button>
+        <button class="btn" id="buy-btn" disabled>Comprar Terreno</button>
+        <button class="btn" id="sell-btn" disabled>Vender Terreno</button>
+        <button class="btn" id="end-btn" disabled>Terminar Turno</button>
+    </div>
+    <div id="log"></div>
+    <div id="modal">
+        <div id="modal-content"></div>
+    </div>
+    <script src="JavaScript/script.js"></script>
+</body>
+</html>
